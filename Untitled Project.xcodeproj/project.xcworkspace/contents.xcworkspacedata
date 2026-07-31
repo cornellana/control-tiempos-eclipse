@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "self:">
+   </FileRef>
+   <Group
+      location = "group:ControlTiemposEclipseTests"
+      name = "ControlTiemposEclipseTests">
+      <FileRef
+         location = "group:EclipseEngineTests.swift">
+      </FileRef>
+   </Group>
+</Workspace>
