@@ -37,6 +37,10 @@ struct RootView: View {
     @State private var settings = AppSettings()
     @State private var isReady  = false
 
+    /// Tarjeta de ayuda que sale al mantener pulsado un botón medio segundo.
+    /// Vive aquí, en la raíz, para poder dibujarse por encima de cualquier paso.
+    @State private var tourOverlay = TourOverlayState()
+
     // Backup import triggered from onOpenURL (AirDrop / Files "Open with…").
     @State private var pendingImport:  IdentifiableBackup? = nil
     @State private var preloadBackup:  BackupFile?         = nil
@@ -59,7 +63,18 @@ struct RootView: View {
                     .transition(.opacity)
                     .zIndex(1)
             }
+
+            // Tarjeta de la pulsación larga: por encima de todo, incluida la
+            // bienvenida, para que el truco funcione desde el primer momento.
+            if let step = tourOverlay.activeStep {
+                TourCardPopup(step: step) {
+                    withAnimation(.easeInOut(duration: 0.2)) { tourOverlay.activeStep = nil }
+                }
+                .transition(.opacity)
+                .zIndex(2)
+            }
         }
+        .environment(tourOverlay)
         // Fundido corto: 0,4 s se percibían como parte del tiempo de carga.
         .animation(.easeInOut(duration: 0.18), value: isReady)
         .preferredColorScheme(.dark)
@@ -112,6 +127,18 @@ struct RootView: View {
 
     @ViewBuilder
     private var stepContent: some View {
+        // En el primer arranque manda la bienvenida: elige idioma y ofrece el tour.
+        // Al pulsar «Empezar» se marca la bandera y ya nunca vuelve a salir sola.
+        if !settings.hasCompletedOnboarding {
+            WelcomeView()
+                .environment(settings)
+        } else {
+            flowContent
+        }
+    }
+
+    @ViewBuilder
+    private var flowContent: some View {
         switch flow.step {
         case .location:
             Step1LocationView()

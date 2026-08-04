@@ -65,6 +65,7 @@ struct EclipseCardView: View {
                             .stroke(Color.gold.opacity(0.4), lineWidth: 0.75)
                     )
                 }
+                .tourCard(TourContent.step(5))
             }
 
             Spacer()

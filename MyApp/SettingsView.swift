@@ -30,6 +30,9 @@ struct SettingsView: View {
     /// Ahora se calcula una sola vez por idioma, fuera del hilo principal.
     @State private var voices: [VoiceOption] = []
 
+    /// Tour guiado a pantalla completa, lanzado desde la sección de ayuda.
+    @State private var showTour = false
+
     var body: some View {
         NavigationStack {
             @Bindable var settings = settings
@@ -140,9 +143,24 @@ struct SettingsView: View {
                 } footer: {
                     Text("Export saves programs to a .cteprog file you can share via AirDrop or Files. Restore imports programs from a backup file.")
                 }
+
+                // Ayuda: el tour completo y el recordatorio de la pulsación larga.
+                Section {
+                    Button {
+                        showTour = true
+                    } label: {
+                        Label("View tutorial", systemImage: "questionmark.circle")
+                            .foregroundStyle(Color.gold)
+                    }
+                } header: {
+                    Text("Help")
+                } footer: {
+                    Text("At any time in the app, press and hold any button for half a second to see a card describing what it does.")
+                }
             }
             .scrollContentBackground(.hidden)
             .background(Color.appBackground)
+            .fullScreenCover(isPresented: $showTour) { GuidedTourView() }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -64,6 +64,7 @@ struct Step1LocationView: View {
                         Label("Saved Locations", systemImage: "bookmark")
                             .foregroundStyle(Color.gold)
                     }
+                    .tourCard(TourContent.step(1))
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -72,6 +73,7 @@ struct Step1LocationView: View {
                         Label("Settings", systemImage: "gear")
                             .foregroundStyle(Color.gold)
                     }
+                    .tourCard(TourContent.step(2))
                 }
             }
         }
@@ -147,6 +149,7 @@ struct Step1LocationView: View {
                 .tint(Color.gold)
                 .controlSize(.large)
                 .disabled(locationService.isLoading)
+.tourCard(TourContent.step(3))
 
                 if let error = locationService.locationError {
                     Label(error.localizedDescription, systemImage: "exclamationmark.triangle")
@@ -188,6 +191,7 @@ struct Step1LocationView: View {
                 .foregroundStyle(.secondary)
         }
         .backgroundStyle(Color.cardBackground)
+        .tourCard(TourContent.step(4))
     }
 
     private func coordinateField(title: LocalizedStringKey, placeholder: String, text: Binding<String>) -> some View {
@@ -231,6 +235,7 @@ struct Step1LocationView: View {
         .controlSize(.large)
         .disabled(!canContinue)
         .padding(.bottom)
+        .tourCard(TourContent.step(6))
     }
 }
 

@@ -40,6 +40,7 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
         static let claudeApiKey     = "claudeApiKey"
         /// Diccionario idioma-rawValue → voice identifier (para voces premium/enhanced).
         static let voiceIdentifiers = "voiceIdentifiers"
+        static let hasCompletedOnboarding = "hasCompletedOnboarding"
     }
 
     // MARK: Properties
@@ -60,6 +61,14 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
     /// Anthropic API key used by `TranslationService` to auto-translate announcement texts.
     var claudeApiKey: String {
         didSet { UserDefaults.standard.set(claudeApiKey, forKey: Key.claudeApiKey) }
+    }
+
+    /// `false` hasta que el usuario termina la pantalla de bienvenida.
+    ///
+    /// `RootView` la consulta para decidir si muestra `WelcomeView` en vez del flujo
+    /// normal. Se puede volver a poner a `false` desde Ajustes para rever la bienvenida.
+    var hasCompletedOnboarding: Bool {
+        didSet { UserDefaults.standard.set(hasCompletedOnboarding, forKey: Key.hasCompletedOnboarding) }
     }
 
     /// Map from `VoiceLanguage.rawValue` to the `AVSpeechSynthesisVoice.identifier`
@@ -119,5 +128,7 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
 
         let storedVoices = UserDefaults.standard.dictionary(forKey: Key.voiceIdentifiers)
         voiceIdentifiers = (storedVoices as? [String: String]) ?? [:]
+
+        hasCompletedOnboarding = UserDefaults.standard.bool(forKey: Key.hasCompletedOnboarding)
     }
 }

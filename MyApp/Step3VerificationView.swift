@@ -51,6 +51,7 @@ struct Step3VerificationView: View {
                 Label("Back", systemImage: "chevron.left")
                     .foregroundStyle(Color.gold)
             }
+            .tourCard(TourContent.step(11))
             Spacer()
             if !flow.locationName.isEmpty {
                 Text(flow.locationName)
@@ -130,6 +131,7 @@ struct Step3VerificationView: View {
                        selection: $flow.simulatedC2,
                        displayedComponents: [.date, .hourAndMinute])
                 .tint(Color.gold)
+                .tourCard(TourContent.step(13))
 
             if let circ = flow.effectiveCircumstances {
                 Divider().background(.secondary.opacity(0.3))
@@ -171,6 +173,7 @@ struct Step3VerificationView: View {
         .buttonStyle(.borderedProminent)
         .tint(Color.gold)
         .controlSize(.large)
+.tourCard(TourContent.step(14))
     }
 
     // MARK: - Helpers

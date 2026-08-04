@@ -81,12 +81,14 @@ struct Step4ProgramView: View {
                             Label("Back", systemImage: "chevron.left")
                                 .foregroundStyle(Color.gold)
                         }
+                        .tourCard(TourContent.step(15))
                         if !events.isEmpty {
                             Button(role: .destructive) {
                                 showDeleteAll = true
                             } label: {
                                 Image(systemName: "trash").foregroundStyle(.red)
                             }
+                            .tourCard(TourContent.step(16))
                         }
                     }
                 }
@@ -100,6 +102,7 @@ struct Step4ProgramView: View {
                             Image(systemName: "bookmark")
                                 .foregroundStyle(Color.gold)
                         }
+                        .tourCard(TourContent.step(17))
                         if !events.isEmpty {
                             Button {
                                 printProgram()
@@ -107,12 +110,14 @@ struct Step4ProgramView: View {
                                 Image(systemName: "printer")
                                     .foregroundStyle(Color.gold)
                             }
+                            .tourCard(TourContent.step(18))
                         }
                         Button {
                             showAdd = true
                         } label: {
                             Image(systemName: "plus").foregroundStyle(Color.gold)
                         }
+                        .tourCard(TourContent.step(19))
                     }
                 }
             }
@@ -180,6 +185,7 @@ struct Step4ProgramView: View {
                     )
                 }
                 .buttonStyle(.plain)
+                .tourCard(TourContent.step(20))
                 .listRowBackground(Color.cardBackground)
                 .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -210,6 +216,7 @@ struct Step4ProgramView: View {
         .buttonStyle(.borderedProminent)
         .tint(Color.gold)
         .controlSize(.large)
+.tourCard(TourContent.step(21))
         .padding()
         .background(Color.appBackground)
     }

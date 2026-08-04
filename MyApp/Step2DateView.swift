@@ -22,6 +22,7 @@ struct Step2DateView: View {
                         Label("Back", systemImage: "chevron.left")
                             .foregroundStyle(Color.gold)
                     }
+                    .tourCard(TourContent.step(7))
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -48,6 +49,7 @@ struct Step2DateView: View {
                 )
                 .datePickerStyle(.graphical)
                 .tint(Color.gold)
+                .tourCard(TourContent.step(8))
                 .padding()
                 .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 16))
                 .padding(.horizontal)
@@ -63,6 +65,7 @@ struct Step2DateView: View {
                         .padding(.vertical, 8)
                         .background(Color.cardBackground, in: Capsule())
                 }
+                .tourCard(TourContent.step(9))
                 .padding(.top, 12)
 
                 Spacer()
@@ -76,6 +79,7 @@ struct Step2DateView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(Color.gold)
                 .controlSize(.large)
+.tourCard(TourContent.step(10))
                 .padding(.horizontal)
                 .padding(.bottom, 32)
             }
