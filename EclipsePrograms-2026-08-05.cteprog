@@ -1,0 +1,361 @@
+{
+  "programs" : [
+    {
+      "createdAt" : "2026-07-21T08:36:22Z",
+      "events" : [
+        {
+          "message" : "El eclipse empieza en 5 minutos, poner filtro, bracketing de 3 ,F8, 1\/500, Iso 100",
+          "offsetSeconds" : -300,
+          "phaseRaw" : "c1",
+          "sortIndex" : 0,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Un minuto para el primer contacto",
+          "offsetSeconds" : -60,
+          "phaseRaw" : "c1",
+          "sortIndex" : 1,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Contacto, el eclipse ha comenzado",
+          "offsetSeconds" : 0,
+          "phaseRaw" : "c1",
+          "sortIndex" : 2,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Primera Foto en 10 segundos",
+          "offsetSeconds" : 110,
+          "phaseRaw" : "c1",
+          "sortIndex" : 3,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Primera Foto",
+          "offsetSeconds" : 120,
+          "phaseRaw" : "c1",
+          "sortIndex" : 4,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 410,
+          "phaseRaw" : "c1",
+          "sortIndex" : 5,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar",
+          "offsetSeconds" : 420,
+          "phaseRaw" : "c1",
+          "sortIndex" : 6,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 710,
+          "phaseRaw" : "c1",
+          "sortIndex" : 7,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 720,
+          "phaseRaw" : "c1",
+          "sortIndex" : 8,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 1010,
+          "phaseRaw" : "c1",
+          "sortIndex" : 9,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar",
+          "offsetSeconds" : 1020,
+          "phaseRaw" : "c1",
+          "sortIndex" : 10,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 1310,
+          "phaseRaw" : "c1",
+          "sortIndex" : 11,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 1320,
+          "phaseRaw" : "c1",
+          "sortIndex" : 12,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 1610,
+          "phaseRaw" : "c1",
+          "sortIndex" : 13,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar",
+          "offsetSeconds" : 1620,
+          "phaseRaw" : "c1",
+          "sortIndex" : 14,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 1910,
+          "phaseRaw" : "c1",
+          "sortIndex" : 15,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar",
+          "offsetSeconds" : 1920,
+          "phaseRaw" : "c1",
+          "sortIndex" : 16,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Foto parcial en 10 segundos",
+          "offsetSeconds" : 2210,
+          "phaseRaw" : "c1",
+          "sortIndex" : 17,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 2220,
+          "phaseRaw" : "c1",
+          "sortIndex" : 18,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Penultima foto parcial en 10 segunfos",
+          "offsetSeconds" : 2510,
+          "phaseRaw" : "c1",
+          "sortIndex" : 19,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Penultimo disparo parcial",
+          "offsetSeconds" : 2520,
+          "phaseRaw" : "c1",
+          "sortIndex" : 20,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Utima foto parcial en 10 segundos",
+          "offsetSeconds" : 2810,
+          "phaseRaw" : "c1",
+          "sortIndex" : 21,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Ultimo disparo parcial",
+          "offsetSeconds" : 2820,
+          "phaseRaw" : "c1",
+          "sortIndex" : 22,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Va ha empezar el fotografiado anillo diamantes y perlas de Bailys poner bracketing de 9",
+          "offsetSeconds" : 3000,
+          "phaseRaw" : "c1",
+          "sortIndex" : 23,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Quitar filtro solar 1\/500, F8,Iso 100",
+          "offsetSeconds" : -20,
+          "phaseRaw" : "max",
+          "sortIndex" : 24,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Cambiar a 1\/15 y disparar continuo",
+          "offsetSeconds" : 0,
+          "phaseRaw" : "c2",
+          "sortIndex" : 25,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar camara de paisaje",
+          "offsetSeconds" : 0,
+          "phaseRaw" : "max",
+          "sortIndex" : 26,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Poner Filtro Cambiar a 1\/500 disparar continuo",
+          "offsetSeconds" : -10,
+          "phaseRaw" : "c3",
+          "sortIndex" : 27,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "En 10 segundos Empiezan disparos cada 5 minutos",
+          "offsetSeconds" : 170,
+          "phaseRaw" : "c3",
+          "sortIndex" : 28,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar parcial",
+          "offsetSeconds" : 180,
+          "phaseRaw" : "c3",
+          "sortIndex" : 29,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 470,
+          "phaseRaw" : "c3",
+          "sortIndex" : 30,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparar",
+          "offsetSeconds" : 480,
+          "phaseRaw" : "c3",
+          "sortIndex" : 31,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 770,
+          "phaseRaw" : "c3",
+          "sortIndex" : 32,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 780,
+          "phaseRaw" : "c3",
+          "sortIndex" : 33,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 1070,
+          "phaseRaw" : "c3",
+          "sortIndex" : 34,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 1080,
+          "phaseRaw" : "c3",
+          "sortIndex" : 35,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 1370,
+          "phaseRaw" : "c3",
+          "sortIndex" : 36,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 1380,
+          "phaseRaw" : "c3",
+          "sortIndex" : 37,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 1670,
+          "phaseRaw" : "c3",
+          "sortIndex" : 38,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 1680,
+          "phaseRaw" : "c3",
+          "sortIndex" : 39,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 1970,
+          "phaseRaw" : "c3",
+          "sortIndex" : 40,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 1980,
+          "phaseRaw" : "c3",
+          "sortIndex" : 41,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 2270,
+          "phaseRaw" : "c3",
+          "sortIndex" : 42,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 2280,
+          "phaseRaw" : "c3",
+          "sortIndex" : 43,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo parcial en 10 segundos",
+          "offsetSeconds" : 2570,
+          "phaseRaw" : "c3",
+          "sortIndex" : 44,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 2580,
+          "phaseRaw" : "c3",
+          "sortIndex" : 45,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Penultimo disparo parcial en 10 segundos",
+          "offsetSeconds" : 2870,
+          "phaseRaw" : "c3",
+          "sortIndex" : 46,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 2880,
+          "phaseRaw" : "c3",
+          "sortIndex" : 47,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Ultimo disparo parcial en 10 segundos",
+          "offsetSeconds" : 3170,
+          "phaseRaw" : "c3",
+          "sortIndex" : 48,
+          "textLanguage" : "es-ES"
+        },
+        {
+          "message" : "Disparo",
+          "offsetSeconds" : 3180,
+          "phaseRaw" : "c3",
+          "sortIndex" : 49,
+          "textLanguage" : "es-ES"
+        }
+      ],
+      "name" : "Raimat 12\/8\/2026"
+    }
+  ],
+  "version" : 1
+}
