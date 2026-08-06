@@ -274,3 +274,161 @@ struct EclipseEngineTests {
                 "se esperaba 2026-08-12, se obtuvo \(comps)")
     }
 }
+
+
+// MARK: - ExternalLinks
+
+/// Contract tests for the external website deep links.
+///
+/// These live in this file rather than their own because the test target references its
+/// sources explicitly (no synchronised group), and CLAUDE.md forbids hand-editing the
+/// `.pbxproj`. Drag them out into `ExternalLinksTests.swift` from Xcode whenever
+/// convenient — nothing here depends on the file name.
+///
+/// The URLs fail silently: a decimal comma instead of a point, or a stray fractional
+/// second in the ISO date, produces a link the remote site quietly misreads and the app
+/// has no way to notice. The point of these tests is to pin the exact strings.
+
+@Suite("ExternalLinks — URLs de verificación externa")
+struct ExternalLinksTests {
+
+    // MARK: - Fixtures
+
+    /// Raimat Natura, Lleida — el punto de referencia del proyecto.
+    private static let raimatLat = 41.68294
+    private static let raimatLon = 0.47930
+
+    /// Máximo del eclipse del 12/08/2026 sobre Raimat: 18:29:20 UTC.
+    private static let maximum = Date(timeIntervalSince1970: 1_786_559_360)
+
+    /// Circunstancias mínimas para construir el enlace de PeakFinder.
+    ///
+    /// - Parameters:
+    ///   - azimuth:  Azimut solar en el máximo, o `nil` para probar el caso degenerado.
+    ///   - altitude: Altura solar en el máximo, o `nil` para probar el caso degenerado.
+    private static func circumstances(azimuth: Double?, altitude: Double?) -> EclipseCircumstances {
+        EclipseCircumstances(
+            kind: .total,
+            contacts: [.max: maximum],
+            magnitude: 1.0,
+            sunAltitudeAtMax: altitude,
+            sunAzimuthAtMax: azimuth,
+            obscuration: 1.0,
+            totalityDurationSeconds: 80
+        )
+    }
+
+    // MARK: - peakfinder.com
+
+    @Test("La URL de PeakFinder lleva coordenadas, puntería solar y fecha del máximo")
+    func peakFinderURLIsExact() throws {
+        let url = try #require(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          "Raimat Natura",
+            circumstances: Self.circumstances(azimuth: 285.4, altitude: 5.0)
+        ))
+
+        #expect(url.absoluteString == "https://www.peakfinder.com/?"
+            + "lat=41.68294"
+            + "&lng=0.47930"
+            + "&name=Raimat%20Natura"
+            + "&azi=285.4"
+            + "&alt=5.0"
+            + "&fov=60"
+            + "&date=2026-08-12T18:29:20Z"
+            + "&teleazi=285.4"
+            + "&telealt=5.0")
+    }
+
+    @Test("Sin nombre de localización se omite el parámetro name")
+    func peakFinderURLOmitsEmptyName() throws {
+        let url = try #require(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          "",
+            circumstances: Self.circumstances(azimuth: 285.4, altitude: 5.0)
+        ))
+
+        #expect(!url.absoluteString.contains("name="))
+    }
+
+    /// La cámara de PeakFinder solo admite ±25° de inclinación, pero el marcador
+    /// telescopio debe seguir señalando la posición real del Sol.
+    @Test("Un Sol alto acota la cámara a 25° pero no el marcador telescopio")
+    func peakFinderClampsCameraButNotTelescope() throws {
+        let url = try #require(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          nil,
+            circumstances: Self.circumstances(azimuth: 180.0, altitude: 61.3)
+        ))
+
+        #expect(url.absoluteString.contains("&alt=25.0"))
+        #expect(url.absoluteString.contains("&telealt=61.3"))
+    }
+
+    @Test("Sin posición solar no hay enlace de PeakFinder")
+    func peakFinderNeedsSunPosition() {
+        #expect(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          "Raimat",
+            circumstances: Self.circumstances(azimuth: nil, altitude: 5.0)
+        ) == nil)
+
+        #expect(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          "Raimat",
+            circumstances: Self.circumstances(azimuth: 285.4, altitude: nil)
+        ) == nil)
+    }
+
+    /// Los separadores decimales deben ser puntos pase lo que pase: es exactamente el
+    /// fallo que la versión de Android arrastraba con `String.format` sin locale.
+    @Test("Los números de la URL usan punto decimal, no coma")
+    func peakFinderUsesDecimalPoint() throws {
+        let url = try #require(ExternalLinks.peakFinder(
+            latitude:      Self.raimatLat,
+            longitude:     Self.raimatLon,
+            name:          nil,
+            circumstances: Self.circumstances(azimuth: 285.4, altitude: 5.0)
+        ))
+
+        #expect(!url.absoluteString.contains(","))
+    }
+
+    // MARK: - xjubier.free.fr
+
+    @Test("La URL de xjubier apunta al mapa del eclipse con las coordenadas cargadas")
+    func xjubierURLIsExact() throws {
+        let url = try #require(ExternalLinks.xjubier(
+            latitude:  Self.raimatLat,
+            longitude: Self.raimatLon,
+            eclipseID: "SE2026Aug12T",
+            year:      2026
+        ))
+
+        #expect(url.absoluteString == "http://xjubier.free.fr/en/site_pages/solar_eclipses/"
+            + "TSE_2026_GoogleMapFull.html?"
+            + "Lat=41.68294&Lng=0.47930&Elv=0&Zoom=18&LC=1")
+    }
+
+    @Test("Cada tipo global de eclipse elige su prefijo de fichero",
+          arguments: [("SE2026Aug12T", "TSE"), ("SE2027Feb06A", "ASE"), ("SE2031Nov14H", "HSE")])
+    func xjubierPrefixPerKind(id: String, prefix: String) throws {
+        let url = try #require(ExternalLinks.xjubier(
+            latitude: 0, longitude: 0, eclipseID: id, year: 2026
+        ))
+        #expect(url.absoluteString.contains("/\(prefix)_2026_GoogleMapFull.html"))
+    }
+
+    /// Los eclipses globalmente parciales no tienen página GoogleMapFull en xjubier.
+    @Test("Un eclipse globalmente parcial no genera enlace")
+    func xjubierSkipsGlobalPartial() {
+        #expect(ExternalLinks.xjubier(
+            latitude: 0, longitude: 0, eclipseID: "SE2025Mar29P", year: 2025
+        ) == nil)
+    }
+}

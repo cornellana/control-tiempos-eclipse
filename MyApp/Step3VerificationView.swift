@@ -103,7 +103,9 @@ struct Step3VerificationView: View {
         if flow.isSimulation {
             simulationCard
         } else if let circ = flow.circumstances {
-            EclipseCardView(circumstances: circ, xjubierURL: xjubierURL())
+            EclipseCardView(circumstances:  circ,
+                            xjubierURL:     xjubierURL(),
+                            peakFinderURL:  peakFinderURL(for: circ))
         }
     }
 
@@ -178,44 +180,35 @@ struct Step3VerificationView: View {
 
     // MARK: - Helpers
 
-    /// Construye la URL del mapa interactivo de xjubier.free.fr para el eclipse concreto,
-    /// con las coordenadas del observador pre-cargadas.
+    /// URL del mapa interactivo de xjubier.free.fr para el eclipse de la fecha elegida.
     ///
-    /// Formato verificado: http://xjubier.free.fr/en/site_pages/solar_eclipses/
-    ///     TSE_2026_GoogleMapFull.html?Lat=41.68294&Lng=0.47930&Elv=0&Zoom=7&LC=1
-    ///
-    /// El prefijo del fichero ("TSE", "ASE", "HSE") se deduce del tipo global del eclipse
-    /// (última letra del ID del dataset, p.ej. "SE2026Aug12T" → T → TSE). Los eclipses
-    /// parciales globales (letra P) no tienen página GoogleMapFull en xjubier; en ese caso
-    /// la función devuelve nil y el botón queda oculto.
-    ///
-    /// xjubier solo ofrece este mapa en inglés (/en/): las rutas /es/ y /fr/ dan 404.
+    /// La construcción vive en `ExternalLinks` para poder probarla; aquí solo se
+    /// resuelven los datos del flujo (coordenadas, id del eclipse y año en UTC).
     private func xjubierURL() -> URL? {
         guard let coord = flow.coordinate,
-              let eclipseID = EclipseEngine.xjubierID(for: flow.eventDate),
-              let typeChar = eclipseID.last else { return nil }
+              let eclipseID = EclipseEngine.xjubierID(for: flow.eventDate) else { return nil }
 
         var cal = Calendar(identifier: .gregorian)
         cal.timeZone = TimeZone(identifier: "UTC")!
         guard let year = cal.dateComponents([.year], from: flow.eventDate).year else { return nil }
 
-        let prefix: String
-        switch typeChar {
-        case "T": prefix = "TSE"
-        case "A": prefix = "ASE"
-        case "H": prefix = "HSE"
-        default:  return nil    // eclipses globalmente parciales no tienen mapa dedicado
-        }
+        return ExternalLinks.xjubier(latitude:  coord.latitude,
+                                     longitude: coord.longitude,
+                                     eclipseID: eclipseID,
+                                     year:      year)
+    }
 
-        let filename = "\(prefix)_\(year)_GoogleMapFull.html"
-        var uc = URLComponents(string: "http://xjubier.free.fr/en/site_pages/solar_eclipses/\(filename)")!
-        uc.queryItems = [
-            URLQueryItem(name: "Lat",  value: String(format: "%.5f", coord.latitude)),
-            URLQueryItem(name: "Lng",  value: String(format: "%.5f", coord.longitude)),
-            URLQueryItem(name: "Elv",  value: "0"),
-            URLQueryItem(name: "Zoom", value: "18"),
-            URLQueryItem(name: "LC",   value: "1"),
-        ]
-        return uc.url
+    /// URL del panorama de peakfinder.com apuntando al Sol en el instante del máximo.
+    ///
+    /// Sirve para comprobar el perfil del horizonte antes de comprometerse con un sitio:
+    /// el 12/08/2026 el Sol está a 5° sobre el horizonte en el máximo, así que un cerro
+    /// o una hilera de chopos puede tapar la totalidad entera.
+    private func peakFinderURL(for circumstances: EclipseCircumstances) -> URL? {
+        guard let coord = flow.coordinate else { return nil }
+
+        return ExternalLinks.peakFinder(latitude:      coord.latitude,
+                                        longitude:     coord.longitude,
+                                        name:          flow.locationName,
+                                        circumstances: circumstances)
     }
 }

@@ -3,8 +3,10 @@
 /// Shows contact times (in the device timezone), magnitude, totality duration,
 /// and solar position at maximum. Adapts to partial eclipses (no C2/C3).
 ///
-/// When `xjubierURL` is non-nil a verification button appears between the
-/// kind badge and the contact times, opening xjubier.free.fr in Safari.
+/// Between the kind badge and the contact times sits a row of external
+/// verification links: xjubier.free.fr (am I inside the totality band?) and
+/// peakfinder.com (is anything blocking my view of the Sun?). Each button
+/// appears only when its URL is non-nil.
 ///
 /// All labels use `LocalizedStringKey` so that the in-app language selector
 /// (injected via `.environment(\.locale, ...)`) is respected at runtime.
@@ -15,9 +17,12 @@ struct EclipseCardView: View {
 
     let circumstances: EclipseCircumstances
 
-    /// When non-nil, a "Verify on xjubier" button is shown between the
-    /// eclipse-type badge and the contact times grid.
+    /// When non-nil, a link to Xavier Jubier's interactive eclipse map is shown.
     var xjubierURL: URL? = nil
+
+    /// When non-nil, a link to PeakFinder's panorama — aimed at the Sun's position
+    /// at maximum — is shown next to the xjubier one.
+    var peakFinderURL: URL? = nil
 
     @Environment(\.openURL) private var openURL
     @State private var showHelp = false
@@ -27,6 +32,7 @@ struct EclipseCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             kindBadge
+            externalLinksRow
             contactsGrid
             additionalInfo
         }
@@ -46,27 +52,6 @@ struct EclipseCardView: View {
                 .padding(.horizontal, 14)
                 .padding(.vertical, 6)
                 .background(Color.gold, in: Capsule())
-
-            Spacer()
-
-            // Botón xjubier — centrado entre el badge de tipo y la magnitud.
-            if let url = xjubierURL {
-                Button { openURL(url) } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "globe")
-                        Text("xjubier.free.fr")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(Color.gold.opacity(0.9))
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 11)
-                    .background(
-                        Capsule()
-                            .stroke(Color.gold.opacity(0.4), lineWidth: 0.75)
-                    )
-                }
-                .tourCard(TourContent.step(5))
-            }
 
             Spacer()
 
@@ -92,6 +77,50 @@ struct EclipseCardView: View {
                     .foregroundStyle(Color.gold.opacity(0.60))
             }
             .accessibilityLabel(Text("Eclipse concepts help"))
+        }
+    }
+
+    // MARK: - External links
+
+    /// Fila con los enlaces de verificación externos.
+    ///
+    /// Viven en su propia fila y no dentro de `kindBadge`: con el badge de tipo, la
+    /// magnitud y el botón de ayuda ya compitiendo por el ancho, dos cápsulas más
+    /// dejaban la fila impracticable en un iPhone compacto.
+    /// Uno a cada extremo de la fila: separarlos evita el toque equivocado con el pulgar
+    /// y deja claro que son dos comprobaciones distintas, no una lista.
+    @ViewBuilder
+    private var externalLinksRow: some View {
+        if xjubierURL != nil || peakFinderURL != nil {
+            HStack(spacing: 10) {
+                if let url = xjubierURL {
+                    linkPill(icon: "globe", label: "xjubier.free.fr", url: url)
+                        .tourCard(TourContent.step(5))
+                }
+                Spacer(minLength: 0)
+                if let url = peakFinderURL {
+                    linkPill(icon: "mountain.2", label: "peakfinder.com", url: url)
+                        .tourCard(TourContent.step(25))
+                }
+            }
+        }
+    }
+
+    /// Cápsula con borde dorado que abre una web externa en el navegador.
+    private func linkPill(icon: String, label: LocalizedStringKey, url: URL) -> some View {
+        Button { openURL(url) } label: {
+            HStack(spacing: 4) {
+                Image(systemName: icon)
+                Text(label)
+            }
+            .font(.caption)
+            .foregroundStyle(Color.gold.opacity(0.9))
+            .padding(.vertical, 6)
+            .padding(.horizontal, 11)
+            .background(
+                Capsule()
+                    .stroke(Color.gold.opacity(0.4), lineWidth: 0.75)
+            )
         }
     }
 

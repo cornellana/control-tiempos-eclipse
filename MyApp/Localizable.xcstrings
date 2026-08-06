@@ -670,6 +670,23 @@
         }
       }
     },
+    "Check the horizon" : {
+      "comment" : "Guided tour name for the PeakFinder button on the verification card",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprova l'horitzó"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comprueba el horizonte"
+          }
+        }
+      }
+    },
     "Choose the language in which you write your announcement texts." : {
       "comment" : "Footer note under the Voice Language picker in settings",
       "extractionState" : "stale",
@@ -2033,6 +2050,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abre las opciones de idioma, voz sintetizada, velocidad y gestión de datos. Los cambios se aplican inmediatamente."
+          }
+        }
+      }
+    },
+    "Opens PeakFinder's panorama from your exact spot, already aimed at the Sun and showing its path across the sky that day. Use it to check that no ridge, building or treeline blocks the eclipse. PeakFinder draws the Sun's path by default but not the Moon's — during an eclipse it is worth switching the Moon on in PeakFinder's own settings. Requires internet." : {
+      "comment" : "Guided tour detail for the PeakFinder button on the verification card",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obre el panorama de PeakFinder des del teu punt exacte, ja apuntat cap al Sol i amb la seva trajectòria del dia dibuixada. Serveix per comprovar que cap carena, edifici o filera d'arbres no tapi l'eclipsi. PeakFinder dibuixa la trajectòria del Sol per defecte, però no la de la Lluna: en un eclipsi convé activar-la als ajustos del mateix PeakFinder. Cal connexió a internet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre el panorama de PeakFinder desde tu punto exacto, ya apuntado hacia el Sol y con su trayectoria de ese día dibujada. Sirve para comprobar que ninguna loma, edificio o hilera de árboles tape el eclipse. PeakFinder dibuja la trayectoria del Sol por defecto, pero no la de la Luna: en un eclipse conviene activarla en los ajustes del propio PeakFinder. Necesita conexión a internet."
           }
         }
       }
@@ -3709,6 +3743,9 @@
           }
         }
       }
+    },
+    "peakfinder.com" : {
+      "comment" : "A label for a button that opens a website."
     },
     "xjubier.free.fr" : {
       "comment" : "A label for a button that opens a website.",
