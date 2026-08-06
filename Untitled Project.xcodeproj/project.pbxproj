@@ -327,7 +327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = TJ6V4QM3GB;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
@@ -348,7 +348,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellana.ControlTiemposEclipse;
 				PRODUCT_NAME = ControlTiemposEclipse;
@@ -370,7 +370,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = TJ6V4QM3GB;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
@@ -391,7 +391,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellana.ControlTiemposEclipse;
 				PRODUCT_NAME = ControlTiemposEclipse;
