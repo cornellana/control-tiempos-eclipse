@@ -58,6 +58,13 @@ struct ScheduledCue: Identifiable {
     /// True while the pre-translation async pass is running.
     private(set) var isTranslating = false
 
+    /// Why translation failed, when it did. `nil` when it worked or was not needed.
+    ///
+    /// Falling back to the original text is the right behaviour — a cue in the wrong language
+    /// beats no cue — but doing it silently left no way to tell a wrong key from a dead
+    /// network from an exhausted quota. This is what the execution screen shows instead.
+    private(set) var translationFailure: String?
+
     // MARK: - Convenience computed properties
 
     /// First cue still waiting to be spoken.
@@ -163,34 +170,35 @@ struct ScheduledCue: Identifiable {
 
         var results: [UUID: String] = [:]
 
-        await withTaskGroup(of: (UUID, String?).self) { group in
-            for cue in needsTranslation {
-                let cueId      = cue.id
-                let message    = cue.message
-                let sourceLang = cue.textLanguage
-                group.addTask {
-                    do {
-                        let translated = try await TranslationService.translate(
-                            message,
-                            from: sourceLang,
-                            to:   targetLang,
-                            engine: engine,
-                            apiKey: apiKey
-                        )
-                        return (cueId, translated)
-                    } catch {
-                        // Fall back silently — original text will be used.
-                        return (cueId, nil)
+        var failure: String?
+
+        // Agrupadas por idioma de origen: una petición por grupo, no una por aviso. Con
+        // cincuenta avisos en paralelo la capa gratuita de Gemini devolvía 429 en la mitad,
+        // y su cuota diaria se cuenta en peticiones, no en palabras.
+        let groups = Dictionary(grouping: needsTranslation, by: \.textLanguage)
+
+        for (sourceLang, cues) in groups {
+            do {
+                let translated = try await TranslationService.translate(
+                    cues.map(\.message),
+                    from: sourceLang,
+                    to:   targetLang,
+                    engine: engine,
+                    apiKey: apiKey
+                )
+                for (index, cue) in cues.enumerated() {
+                    if let text = translated.indices.contains(index) ? translated[index] : nil {
+                        results[cue.id] = text
                     }
                 }
-            }
-
-            for await (id, translated) in group {
-                if let translated { results[id] = translated }
+            } catch {
+                // El texto original se sigue usando; lo que cambia es que ahora consta por qué.
+                if failure == nil { failure = error.localizedDescription }
             }
         }
 
         translatedTexts.merge(results) { _, new in new }
+        translationFailure = results.isEmpty ? failure : nil
     }
 
     // MARK: - Lifecycle

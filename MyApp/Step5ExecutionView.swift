@@ -45,12 +45,25 @@ struct Step5ExecutionView: View {
             // Overlaid content respects safe areas.
             if let vm = execVM {
                 VStack(spacing: 0) {
+                    // Si la traducción falló, los avisos suenan en su idioma original y hay
+                    // que decirlo: en silencio no se distingue una clave mal pegada de una
+                    // cuota agotada, y el fotógrafo se entera durante el eclipse.
+                    if let failure = vm.translationFailure {
+                        Label(failure, systemImage: "exclamationmark.triangle.fill")
+                            .font(.footnote)
+                            .foregroundStyle(.black)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.orange)
+                    }
+
                     eclipseHeader(vm: vm)
                     cueList(vm: vm)
                     stopBar
                 }
 
-                // Shown while Claude API translates cues before the timer starts.
+                // Shown while the selected engine translates cues before the timer starts.
                 if vm.isTranslating {
                     translatingOverlay
                 }
