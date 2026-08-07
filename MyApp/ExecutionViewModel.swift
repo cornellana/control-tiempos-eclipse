@@ -4,7 +4,7 @@
 /// compares Date.now against each cue's fireDate (no accumulated drift), and
 /// coordinates speech synthesis and haptics at the correct instant.
 ///
-/// When `voiceLanguage` differs from a cue's `textLanguage`, `preTranslate(apiKey:)` is
+/// When `voiceLanguage` differs from a cue's `textLanguage`, `preTranslate(engine:apiKey:)` is
 /// called first (async, before starting the timer) to translate via the Claude API.
 ///
 /// All public mutations happen on the main actor so SwiftUI observations are safe.
@@ -32,7 +32,7 @@ struct ScheduledCue: Identifiable {
 /// Observable state machine for Step 5 (execution).
 ///
 /// - Create from `EclipseCircumstances` + `[ProgramEvent]` after Step 4.
-/// - Call `await preTranslate(apiKey:)` if translation may be needed.
+/// - Call `await preTranslate(engine:apiKey:)` if translation may be needed.
 /// - Call `start()` once translation is done; call `stop()` when leaving.
 /// - The tick timer runs on RunLoop.common to fire during scroll events.
 @MainActor
@@ -144,8 +144,10 @@ struct ScheduledCue: Identifiable {
     /// Cues that fail to translate silently fall back to their original `message`.
     /// This method is a no-op when `apiKey` is empty or all cues share the voice language.
     ///
-    /// - Parameter apiKey: Anthropic API key from `AppSettings.claudeApiKey`.
-    func preTranslate(apiKey: String) async {
+    /// - Parameters:
+    ///   - engine: Back end chosen in Settings.
+    ///   - apiKey: Key for that engine, from `AppSettings.activeApiKey`.
+    func preTranslate(engine: TranslationEngine, apiKey: String) async {
         guard !apiKey.isEmpty else { return }
 
         let needsTranslation = allCues.filter {
@@ -172,6 +174,7 @@ struct ScheduledCue: Identifiable {
                             message,
                             from: sourceLang,
                             to:   targetLang,
+                            engine: engine,
                             apiKey: apiKey
                         )
                         return (cueId, translated)
@@ -193,7 +196,7 @@ struct ScheduledCue: Identifiable {
     // MARK: - Lifecycle
 
     /// Starts the tick timer, enables idle-timer prevention and audio session.
-    /// Call after `await preTranslate(apiKey:)` if translation is required.
+    /// Call after `await preTranslate(engine:apiKey:)` if translation is required.
     func start() {
         speech.configureAudioSession()
         UIApplication.shared.isIdleTimerDisabled = true

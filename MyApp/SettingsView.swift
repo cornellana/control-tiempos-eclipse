@@ -112,16 +112,43 @@ struct SettingsView: View {
                     }
                 }
 
-                // Claude API key — used to auto-translate announcement texts at execution time.
+                // Translation engine and its key — used to auto-translate announcement
+                // texts at execution time.
                 Section {
-                    SecureField("API Key", text: $settings.claudeApiKey)
-                        .textContentType(.password)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
+                    Picker("Engine", selection: $settings.translationEngine) {
+                        ForEach(TranslationEngine.allCases) { engine in
+                            Text(engine.displayName).tag(engine)
+                        }
+                    }
+
+                    switch settings.translationEngine {
+                    case .gemini:
+                        SecureField("API Key", text: $settings.geminiApiKey)
+                            .textContentType(.password)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                    case .claude:
+                        SecureField("API Key", text: $settings.claudeApiKey)
+                            .textContentType(.password)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                    }
+                    // Sin esto el ajuste es un callejón sin salida para quien no sea ya
+                    // cliente de una API: un campo de contraseña, ninguna pista de cuál de
+                    // las dos cuesta dinero, y ningún sitio al que ir.
+                    Link(destination: settings.translationEngine.keyPageURL) {
+                        Label("Open the page to create a key", systemImage: "arrow.up.right.square")
+                            .foregroundStyle(Color.gold)
+                    }
                 } header: {
-                    Text("Translation (Claude API)")
+                    Text("Translation")
                 } footer: {
-                    Text("Optional. If the language of an announcement text differs from the app language, it is translated automatically before execution.")
+                    switch settings.translationEngine {
+                    case .gemini:
+                        Text("Free: no card needed. At aistudio.google.com/apikey create a project whose billing tier reads «Free tier» — a project set to prepay will reject every call — then press Create API key and paste it above.")
+                    case .claude:
+                        Text("Paid: Anthropic charges from the first call, so the account needs credit. Create one at console.anthropic.com, add credit under Billing, then generate a key in Settings → API keys and paste it above.")
+                    }
                 }
 
                 // Program backup and restore.

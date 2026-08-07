@@ -38,6 +38,8 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
         static let language         = "language"
         static let speechRate       = "speechRate"
         static let claudeApiKey     = "claudeApiKey"
+        static let geminiApiKey     = "geminiApiKey"
+        static let translationEngine = "translationEngine"
         /// Diccionario idioma-rawValue → voice identifier (para voces premium/enhanced).
         static let voiceIdentifiers = "voiceIdentifiers"
         static let hasCompletedOnboarding = "hasCompletedOnboarding"
@@ -61,6 +63,29 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
     /// Anthropic API key used by `TranslationService` to auto-translate announcement texts.
     var claudeApiKey: String {
         didSet { UserDefaults.standard.set(claudeApiKey, forKey: Key.claudeApiKey) }
+    }
+
+    /// Google AI Studio key, used when `translationEngine` is `.gemini`.
+    var geminiApiKey: String {
+        didSet { UserDefaults.standard.set(geminiApiKey, forKey: Key.geminiApiKey) }
+    }
+
+    /// Which cloud model translates the cues.
+    ///
+    /// Stored apart from the keys so switching engines to compare wording does not throw away
+    /// the key for the other one.
+    var translationEngine: TranslationEngine {
+        didSet {
+            UserDefaults.standard.set(translationEngine.rawValue, forKey: Key.translationEngine)
+        }
+    }
+
+    /// Key for the engine currently selected, or empty when it has not been entered.
+    var activeApiKey: String {
+        switch translationEngine {
+        case .claude: return claudeApiKey
+        case .gemini: return geminiApiKey
+        }
     }
 
     /// `false` hasta que el usuario termina la pantalla de bienvenida.
@@ -125,6 +150,10 @@ enum VoiceLanguage: String, CaseIterable, Identifiable {
         speechRate = rate > 0 ? rate : AVSpeechUtteranceDefaultSpeechRate
 
         claudeApiKey = UserDefaults.standard.string(forKey: Key.claudeApiKey) ?? ""
+        geminiApiKey = UserDefaults.standard.string(forKey: Key.geminiApiKey) ?? ""
+        translationEngine = TranslationEngine(
+            rawValue: UserDefaults.standard.string(forKey: Key.translationEngine) ?? ""
+        ) ?? .gemini
 
         let storedVoices = UserDefaults.standard.dictionary(forKey: Key.voiceIdentifiers)
         voiceIdentifiers = (storedVoices as? [String: String]) ?? [:]

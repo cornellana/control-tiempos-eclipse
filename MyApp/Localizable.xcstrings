@@ -3899,6 +3899,125 @@
           }
         }
       }
+    },
+    "Engine" : {
+      "comment" : "Picker label choosing which cloud model translates the cues.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motor"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Motor"
+          }
+        }
+      }
+    },
+    "Translation" : {
+      "comment" : "Settings section header for the translation engine.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traducció"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traducción"
+          }
+        }
+      }
+    },
+    "Optional. If the language of an announcement text differs from the app language, it is translated automatically before execution. Paid from the first call." : {
+      "comment" : "Footer explaining the Claude translation engine.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional. Si l’idioma d’un avís difereix de l’idioma de l’app, es tradueix automàticament abans de l’execució. De pagament des de la primera crida."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional. Si el idioma de un aviso difiere del idioma de la app, se traduce automáticamente antes de la ejecución. De pago desde la primera llamada."
+          }
+        }
+      }
+    },
+    "Optional. If the language of an announcement text differs from the app language, it is translated automatically before execution. Has a free tier. Google uses free-tier text to improve its products." : {
+      "comment" : "Footer explaining the Gemini translation engine.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional. Si l’idioma d’un avís difereix de l’idioma de l’app, es tradueix automàticament abans de l’execució. Té capa gratuïta. Google fa servir els textos de la capa gratuïta per millorar els seus productes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opcional. Si el idioma de un aviso difiere del idioma de la app, se traduce automáticamente antes de la ejecución. Tiene capa gratuita. Google usa los textos de la capa gratuita para mejorar sus productos."
+          }
+        }
+      }
+    },
+    "Open the page to create a key" : {
+      "comment" : "Link that opens the console issuing the selected engine's API key.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrir la pàgina per crear una clau"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir la página para crear una clave"
+          }
+        }
+      }
+    },
+    "Free: no card needed. At aistudio.google.com/apikey create a project whose billing tier reads «Free tier» — a project set to prepay will reject every call — then press Create API key and paste it above." : {
+      "comment" : "Footer explaining how to obtain a free Gemini key.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis: no cal targeta. A aistudio.google.com/apikey crea un projecte amb el nivell de facturació «Free tier» —un amb prepagament rebutjarà totes les crides—, prem Create API key i enganxa la clau a dalt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis: no hace falta tarjeta. En aistudio.google.com/apikey crea un proyecto cuyo nivel de facturación ponga «Free tier» —uno con prepago rechazará todas las llamadas—, pulsa Create API key y pega la clave arriba."
+          }
+        }
+      }
+    },
+    "Paid: Anthropic charges from the first call, so the account needs credit. Create one at console.anthropic.com, add credit under Billing, then generate a key in Settings → API keys and paste it above." : {
+      "comment" : "Footer explaining how to obtain a paid Claude key.",
+      "localizations" : {
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De pagament: Anthropic cobra des de la primera crida, així que el compte necessita saldo. Crea’l a console.anthropic.com, afegeix saldo a Billing, genera una clau a Settings → API keys i enganxa-la a dalt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De pago: Anthropic cobra desde la primera llamada, así que la cuenta necesita saldo. Créala en console.anthropic.com, añade saldo en Billing, genera una clave en Settings → API keys y pégala arriba."
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

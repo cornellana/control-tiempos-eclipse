@@ -67,7 +67,7 @@ struct Step5ExecutionView: View {
             )
             execVM = vm
             // Translate cues whose textLanguage ≠ voiceLanguage before starting the timer.
-            await vm.preTranslate(apiKey: settings.claudeApiKey)
+            await vm.preTranslate(engine: settings.translationEngine, apiKey: settings.activeApiKey)
             vm.start()
         }
         .onDisappear {
